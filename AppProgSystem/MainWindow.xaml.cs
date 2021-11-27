@@ -24,5 +24,26 @@ namespace AppProgSystem
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(Anglais.IsChecked == true)
+            {
+                Sauvegarde save = new Sauvegarde();
+                save.Show();
+                this.Close();
+            }
+            else if(Francais.IsChecked == true)
+            {
+                Sauvegarde save = new Sauvegarde();
+                save.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Choisissez votre langue / Choose your language !!!");
+            }
+            
+        }
     }
 }
