@@ -12,6 +12,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Button Content="Button" HorizontalAlignment="Center" Margin="0,350,0,0" VerticalAlignment="Top" Height="45" Width="80" Grid.Column="1"/>
+        <Image Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="270" Margin="55,30,0,0" VerticalAlignment="Top" Width="360" Source = "C:\EasySave\Images\prosoft.jpg"/>
 
     </Grid>
 </Window>
