@@ -1,16 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
-using System.Threading;
-using System.Windows;
 using System.IO;
-using System.Text.Json;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Text.Json.Serialization;
-using System.Data;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
 namespace AppProgSystem
