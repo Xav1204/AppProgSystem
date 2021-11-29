@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AppProgSystem
 {
-    class Model
+    public class Model
     {
     }
 }

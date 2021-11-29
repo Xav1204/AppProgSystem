@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AppProgSystem
 {
-    class View
+    public class View
     {
     }
 }

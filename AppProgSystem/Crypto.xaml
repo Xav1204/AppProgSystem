@@ -8,9 +8,11 @@
         Title="Crypto" Height="350" Width="400">
     <Grid>
         <Button Content="Chiffrer" HorizontalAlignment="Left" Margin="100,200,0,0" VerticalAlignment="Top" Height="40" Width="70"/>
-        <TextBox Name="Chiffrement" HorizontalAlignment="Left" Margin="75,149,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Fichiers à chiffrer" HorizontalAlignment="Left" Margin="85,118,0,0" VerticalAlignment="Top"/>
         <Button Content="Chiffrer Tout" HorizontalAlignment="Left" Margin="275,195,0,0" VerticalAlignment="Top" Height="40" Width="70"/>
+        <TextBox x:Name="Chiffrement_Copy" HorizontalAlignment="Left" Margin="75,87,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Nom de la sauvegarde" HorizontalAlignment="Left" Margin="70,56,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Center" Width="120"/>
 
     </Grid>
 </Window>
