@@ -7,15 +7,15 @@
         mc:Ignorable="d"
         Title="Sauvegarde" Height="480" Width="820">
     <Grid>
-        <TextBox  Name="Nom" HorizontalAlignment="Left" Margin="147,76,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="45" FontSize="22"/>
+        <TextBox  Name="Nom" HorizontalAlignment="Left" Margin="147,76,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Content="Nom" HorizontalAlignment="Left" Margin="58,76,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox Name="Type" HorizontalAlignment="Left" Margin="147,320,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="45" FontSize="22"/>
+        <TextBox Name="Type" HorizontalAlignment="Left" Margin="147,320,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Content="Type" HorizontalAlignment="Left" Margin="58,320,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox Name="Source" HorizontalAlignment="Left" Margin="147,156,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="45" FontSize="22"/>
+        <TextBox Name="Source" HorizontalAlignment="Left" Margin="147,156,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Content="Source" HorizontalAlignment="Left" Margin="58,156,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox Name="Cible" HorizontalAlignment="Left" Margin="147,238,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="45" FontSize="22"/>
+        <TextBox Name="Cible" HorizontalAlignment="Left" Margin="147,238,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Content="Cible" HorizontalAlignment="Left" Margin="58,238,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <DataGrid Margin="324,29,46,99"/>
+        <DataGrid Margin="324,29,31,99"/>
         <Button Click="Chiffrer_Button_Click" Content="Encrypt" HorizontalAlignment="Left" Margin="350,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Click="Save_Button_Click" Content="Save" HorizontalAlignment="Left" Margin="450,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Click="SequentialSave_Button_Click" Content="SequentialSave" HorizontalAlignment="Left" Margin="575,411,0,0" VerticalAlignment="Top" FontSize="18"/>
@@ -23,7 +23,7 @@
         <Button Click="Modify_Button_Click" Content="Modify" HorizontalAlignment="Left" Margin="150,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Click="Create_Button_Click" Content="Create" HorizontalAlignment="Left" Margin="50,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Click="Back_Button_Click" Content="Retour" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button Click="Read_Button_Click" Content="Read" HorizontalAlignment="Left" Margin="529,370,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Button Click="Read_Button_Click" Content="Read" HorizontalAlignment="Left" Margin="529,355,0,0" VerticalAlignment="Top" FontSize="16"/>
 
     </Grid>
 </Window>
