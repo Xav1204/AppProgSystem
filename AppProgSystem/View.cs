@@ -5,9 +5,7 @@ using System.Text;
 
 namespace AppProgSystem
 {
-    public class View
-    {   
-    }
+    public class View { }
     public class data_Save
     {
         public string Name { get; set; }
@@ -15,11 +13,5 @@ namespace AppProgSystem
         public string Target { get; set; }
         public string Type { get; set; }
     }
-    public class Items
-    {
-        public string Name { get; set; }
-        public string Source { get; set; }
-        public string Target { get; set; }
-        public string Type { get; set; }
-    }
+    public class Items : data_Save { }
 }
