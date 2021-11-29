@@ -15,7 +15,14 @@
         <Label Content="Source" HorizontalAlignment="Left" Margin="58,156,0,0" VerticalAlignment="Top" FontSize="22"/>
         <TextBox Name="Cible" HorizontalAlignment="Left" Margin="147,238,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Content="Cible" HorizontalAlignment="Left" Margin="58,238,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <DataGrid Margin="324,29,31,99"/>
+        <DataGrid x:Name="DataRead" Margin="320,29,31,99" AutoGenerateColumns="False" ItemsSource="{Binding Items}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="Auto"/>
+                <DataGridTextColumn Header="Source" Binding="{Binding Path=Source}" Width="Auto"/>
+                <DataGridTextColumn Header="Target" Binding="{Binding Path=Target}" Width="Auto"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Click="Chiffrer_Button_Click" Content="Encrypt" HorizontalAlignment="Left" Margin="350,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Click="Save_Button_Click" Content="Save" HorizontalAlignment="Left" Margin="450,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Click="SequentialSave_Button_Click" Content="SequentialSave" HorizontalAlignment="Left" Margin="575,411,0,0" VerticalAlignment="Top" FontSize="18"/>

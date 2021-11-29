@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
 
 namespace AppProgSystem
 {
@@ -17,9 +21,16 @@ namespace AppProgSystem
     /// </summary>
     public partial class Sauvegarde : Window
     {
+        Model model = new Model();
+
         public Sauvegarde()
         {
             InitializeComponent();
+            Model.set = DataRead;
+        }
+        private void Read_Button_Click(object sender, RoutedEventArgs e)
+        {
+            model.Read();
         }
 
         private void Create_Button_Click(object sender, RoutedEventArgs e)
@@ -47,11 +58,6 @@ namespace AppProgSystem
         }
 
         private void Chiffrer_Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Read_Button_Click(object sender, RoutedEventArgs e)
         {
 
         }
