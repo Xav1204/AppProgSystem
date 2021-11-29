@@ -25,17 +25,17 @@ namespace AppProgSystem
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Valider_Button_Click(object sender, RoutedEventArgs e)
         {
-            if(Anglais.IsChecked == true)
+            Sauvegarde save = new Sauvegarde();
+
+            if (Anglais.IsChecked == true)
             {
-                Sauvegarde save = new Sauvegarde();
                 save.Show();
                 this.Close();
             }
             else if(Francais.IsChecked == true)
             {
-                Sauvegarde save = new Sauvegarde();
                 save.Show();
                 this.Close();
             }

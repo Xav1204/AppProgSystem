@@ -11,7 +11,7 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Content="Valider / Validate" Click ="Button_Click" HorizontalAlignment="Center" Margin="0,350,0,0" VerticalAlignment="Top" Height="45" Width="124" Grid.Column="1"/>
+        <Button Content="Valider / Validate" Click ="Valider_Button_Click" HorizontalAlignment="Center" Margin="0,350,0,0" VerticalAlignment="Top" Height="45" Width="124" Grid.Column="1"/>
         <Image Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="270" Margin="55,30,0,0" VerticalAlignment="Top" Width="360" Source = "C:\EasySave\Images\prosoft.jpg"/>
         <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="500,105,0,0" Text="Bienvenue sur le logiciel de Sauvegarde EasySave" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="269"/>
         <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="500,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="269"><Run Language="fr-fr" Text="Welcome on the Save software"/><Run Text=" EasySave"/></TextBlock>
