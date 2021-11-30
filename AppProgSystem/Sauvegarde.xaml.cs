@@ -51,7 +51,7 @@ namespace AppProgSystem
             model.Modify();
             Nom.Text = "";
         }
-        
+
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
             model.Delete();
@@ -79,7 +79,10 @@ namespace AppProgSystem
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow XavierGrosSexe = new MainWindow();
+            XavierGrosSexe.Show();
+            this.Close();
+            
         }
     }
 }

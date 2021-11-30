@@ -34,5 +34,9 @@ namespace AppProgSystem
             }
             
         }
+        private void Quitter_Button_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }
