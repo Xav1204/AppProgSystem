@@ -79,8 +79,8 @@ namespace AppProgSystem
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow XavierGrosSexe = new MainWindow();
-            XavierGrosSexe.Show();
+            MainWindow mw = new MainWindow();
+            mw.Show();
             this.Close();
             
         }
