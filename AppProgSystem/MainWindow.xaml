@@ -18,5 +18,6 @@
         <RadioButton Name="Anglais" Content="English" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="325,315,0,0" VerticalAlignment="Top"/>
         <RadioButton Name="Francais" Content="Français" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="420,315,0,0" VerticalAlignment="Top"/>
         <TextBlock Name ="Langue" HorizontalAlignment="Center" Margin="0,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="27" Width="268" Grid.Column="1"><Run Language="fr-fr" Text="Choisissez votre langue / Choose your language"/></TextBlock>
+        <Button Content="Quitter / Exit" Click="Quitter_Button_Click"  Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="720,20,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
