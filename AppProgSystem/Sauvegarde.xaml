@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="Sauvegarde" Height="480" Width="820">
     <Grid>
-        <TextBox  Name="Nom" HorizontalAlignment="Left" Margin="147,76,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <TextBox  Name="Nom" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="147,76,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Content="Nom" HorizontalAlignment="Left" Margin="58,76,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox Name="Type" HorizontalAlignment="Left" Margin="147,320,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
-        <Label Content="Type" HorizontalAlignment="Left" Margin="58,320,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox Name="Source" HorizontalAlignment="Left" Margin="147,156,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <TextBox Name="Source" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="147,156,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Content="Source" HorizontalAlignment="Left" Margin="58,156,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox Name="Cible" HorizontalAlignment="Left" Margin="147,238,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <TextBox Name="Cible" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="147,238,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Content="Cible" HorizontalAlignment="Left" Margin="58,238,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <TextBox Name="Type" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="147,320,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <Label Content="Type" HorizontalAlignment="Left" Margin="58,320,0,0" VerticalAlignment="Top" FontSize="22"/>
         <DataGrid x:Name="DataRead" Margin="320,29,31,99" AutoGenerateColumns="False" ItemsSource="{Binding Items}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="Auto"/>
