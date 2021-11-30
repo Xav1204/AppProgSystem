@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
-
+using System.Diagnostics;
+using System.Threading;
 
 namespace AppProgSystem
 {
@@ -62,7 +63,7 @@ namespace AppProgSystem
 
         private void Chiffrer_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            model.Encrypt();
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
