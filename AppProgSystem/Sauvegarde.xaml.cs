@@ -38,26 +38,37 @@ namespace AppProgSystem
             valeur_type = Type.Text;
 
             model.Create(valeur_nom, valeur_source, valeur_cible, valeur_type);
+
+            Nom.Text = "";
+            Source.Text = "";
+            Cible.Text = "";
+            Type.Text = "";
         }
 
         private void Modify_Button_Click(object sender, RoutedEventArgs e)
         {
             model.Modify();
+            Nom.Text = "";
         }
         
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
             model.Delete();
+            Nom.Text = "";
         }
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
             valeur_nom = Nom.Text;
             model.Save(valeur_nom);
+
+            Nom.Text = "";
         }
 
         private void SequentialSave_Button_Click(object sender, RoutedEventArgs e)
         {
             model.SequentialSave();
+
+            Nom.Text = "";
         }
 
         private void Chiffrer_Button_Click(object sender, RoutedEventArgs e)

@@ -127,6 +127,8 @@ namespace AppProgSystem
         //créer une sauvegarde avec ses paramètres en entrée
         public void Create(string NameSave, string SourceSave, string TargetSave, string TypeSave)
         {
+            var result = false;
+
             if (txt_nom.Text == "" & txt_source.Text == "" & txt_cible.Text == "" & txt_type.Text == "")
             {
                 MessageBox.Show("Enter all fields");
@@ -169,21 +171,59 @@ namespace AppProgSystem
                     NbFilesLeftToDo = "0"
                 };
 
+                foreach(var data in list)
+                {
+                    if(data.Name == null)
+                    {
+                        result = true;
+                    }
+                }
+
                 //si fichier vide
                 if (list == null)
                 {
-
                     jsondata = "[" + JsonConvert.SerializeObject(Save, Formatting.Indented) + "]";
                     File.WriteAllText(pathSave, jsondata);
 
                     jsondata2 = "[" + JsonConvert.SerializeObject(avance, Formatting.Indented) + "]";
                     File.WriteAllText(pathAvancement, jsondata2);
+                    MessageBox.Show("Save created");
                 }
+                else if(result == true)
+                {
+                    foreach (var data in list.Where(x => x.Name == null))
+                    {
+                        data.Name = NameSave;
+                        data.Source = SourceSave;
+                        data.Target = TargetSave;
+                        data.Type = TypeSave;
 
+                        jsondata = JsonConvert.SerializeObject(list, Formatting.Indented);
+                        File.WriteAllText(pathSave, jsondata);
+
+                        if(data.Name == NameSave)
+                        {
+                            break;
+                        }
+                    }
+
+                    foreach (var data in list2.Where(x => x.Name == null))
+                    {
+                        data.Name = NameSave;
+
+                        jsondata2 = JsonConvert.SerializeObject(list2, Formatting.Indented);
+                        File.WriteAllText(pathAvancement, jsondata2);
+
+                        if (data.Name == NameSave)
+                        {
+                            break;
+                        }
+                    }
+                    MessageBox.Show("Save created");
+                }
                 //si fichier non vide
                 else
                 {
-
                     list.Add(Save);
                     jsondata = JsonConvert.SerializeObject(list, Formatting.Indented);
                     File.WriteAllText(pathSave, jsondata);
@@ -191,7 +231,9 @@ namespace AppProgSystem
                     list2.Add(avance);
                     jsondata2 = JsonConvert.SerializeObject(list2, Formatting.Indented);
                     File.WriteAllText(pathAvancement, jsondata2);
-                }
+                    MessageBox.Show("Save created");
+
+                }   
             }
         }
 
@@ -226,6 +268,7 @@ namespace AppProgSystem
 
                         string output = JsonConvert.SerializeObject(Data, Formatting.Indented);
                         File.WriteAllText(pathSave, output);
+                        MessageBox.Show("Save modified");
                     }
 
                     //si on change la cible
@@ -237,6 +280,7 @@ namespace AppProgSystem
 
                         string output = JsonConvert.SerializeObject(Data, Formatting.Indented);
                         File.WriteAllText(pathSave, output);
+                        MessageBox.Show("Save modified");
                     }
 
                     //si on change le type
@@ -248,6 +292,7 @@ namespace AppProgSystem
 
                         string output = JsonConvert.SerializeObject(Data, Formatting.Indented);
                         File.WriteAllText(pathSave, output);
+                        MessageBox.Show("Save modified");
                     }
                 }
             }
@@ -291,6 +336,8 @@ namespace AppProgSystem
                 }
                 jsonText2 = JsonConvert.SerializeObject(Data2, Formatting.Indented);
                 File.WriteAllText(pathAvancement, jsonText2);
+
+                MessageBox.Show("Save deleted");
             } 
         }
 
