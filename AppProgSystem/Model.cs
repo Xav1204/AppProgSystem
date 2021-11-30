@@ -252,9 +252,6 @@ namespace AppProgSystem
                 string json = File.ReadAllText(pathSave);
                 var Data = JsonConvert.DeserializeObject<List<data_Save>>(json);
 
-                var json2 = File.ReadAllText(pathAvancement);
-                var Data2 = JsonConvert.DeserializeObject<List<log_avancement>>(json2);
-
                 var search = txt_nom.Text;
 
                 foreach (var data in Data.Where(x => x.Name == search))
@@ -266,35 +263,33 @@ namespace AppProgSystem
 
                         data.Source = modif;
 
-                        string output = JsonConvert.SerializeObject(Data, Formatting.Indented);
-                        File.WriteAllText(pathSave, output);
-                        MessageBox.Show("Save modified");
+                        json = JsonConvert.SerializeObject(Data, Formatting.Indented);
+                        File.WriteAllText(pathSave, json);
                     }
 
                     //si on change la cible
-                    else if (txt_nom.Text != "" & txt_cible.Text != "")
+                    if (txt_nom.Text != "" & txt_cible.Text != "")
                     {
                         var modif = txt_cible.Text;
 
                         data.Target = modif;
 
-                        string output = JsonConvert.SerializeObject(Data, Formatting.Indented);
-                        File.WriteAllText(pathSave, output);
-                        MessageBox.Show("Save modified");
+                        json = JsonConvert.SerializeObject(Data, Formatting.Indented);
+                        File.WriteAllText(pathSave, json);
                     }
 
                     //si on change le type
-                    else if (txt_nom.Text != "" & txt_type.Text != "")
+                    if (txt_nom.Text != "" & txt_type.Text != "")
                     {
                         var modif = txt_type.Text;
 
                         data.Type = modif;
 
-                        string output = JsonConvert.SerializeObject(Data, Formatting.Indented);
-                        File.WriteAllText(pathSave, output);
-                        MessageBox.Show("Save modified");
+                        json = JsonConvert.SerializeObject(Data, Formatting.Indented);
+                        File.WriteAllText(pathSave, json);
                     }
                 }
+                MessageBox.Show("Save modified");
             }
         }
 

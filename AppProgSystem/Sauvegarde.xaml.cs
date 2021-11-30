@@ -50,6 +50,9 @@ namespace AppProgSystem
         {
             model.Modify();
             Nom.Text = "";
+            Source.Text = "";
+            Cible.Text = "";
+            Type.Text = "";
         }
 
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
