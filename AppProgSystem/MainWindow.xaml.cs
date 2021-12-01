@@ -9,23 +9,30 @@ namespace AppProgSystem
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        public static string choix = "";
         private void Valider_Button_Click(object sender, RoutedEventArgs e)
         {
             Sauvegarde save = new Sauvegarde();
+            Model model = new Model();
 
             if (Anglais.IsChecked == true)
             {
                 save.Show();
+                choix = "EN";
+                save.langue();
                 this.Close();
             }
             else if(Francais.IsChecked == true)
             {
                 save.Show();
+                choix = "FR";
+                save.langue();
                 this.Close();
             }
             else

@@ -7,11 +7,14 @@ using System.Windows;
 using System.Linq;
 using System.Threading;
 using System.Diagnostics;
+using System.Text;
 
 namespace AppProgSystem
 {
     public class Model
     {
+        public delegate String del_JSON(string path, string search);
+
         //variable model
         private string Name;
         private string Source;
@@ -28,6 +31,17 @@ namespace AppProgSystem
         public static TextBox txt_cible = new TextBox();
         public static TextBox txt_type = new TextBox();
 
+        public void pascontent()
+        {
+            string pascontent = char.ConvertFromUtf32(0x1F624);
+            MessageBox.Show(pascontent + pascontent + pascontent + pascontent + pascontent + pascontent + pascontent);
+        }
+
+        public void content()
+        {
+            string content = char.ConvertFromUtf32(0x1F601);
+            MessageBox.Show(content + content + content + content + content + content + content);
+        }
         //verifier si fichier existe
         public string VerifyFile(string JsonFileIn)
         {
@@ -38,7 +52,7 @@ namespace AppProgSystem
             }
             else
             {
-                MessageBox.Show("\nError : File doesn't exist!");
+                pascontent();
                 goto BEGIN;
             }
         }
@@ -113,15 +127,23 @@ namespace AppProgSystem
         //lire données json dans datagrid
         public void Read()
         {
-            StreamReader r = new StreamReader(@"C:\EasySave\Save\Save.json");
+            StreamReader r = new StreamReader(pathSave);
             string json = r.ReadToEnd();
             List<data_Save> table = JsonConvert.DeserializeObject<List<data_Save>>(json);
             List<Items> items = new List<Items>();
-            foreach (var data in table)
+            try
             {
-                items.Add(new Items { Name = data.Name, Source = data.Source, Target = data.Target, Type = data.Type });
+                foreach(var data in table)
+                {
+                    items.Add(new Items { Name = data.Name, Source = data.Source, Target = data.Target, Type = data.Type });
+                }
+                set.ItemsSource = items;
             }
-            set.ItemsSource = items;
+            catch
+            {
+                pascontent();
+            }
+            
         }
 
         //créer une sauvegarde avec ses paramètres en entrée
@@ -131,7 +153,7 @@ namespace AppProgSystem
 
             if (txt_nom.Text == "" & txt_source.Text == "" & txt_cible.Text == "" & txt_type.Text == "")
             {
-                MessageBox.Show("Enter all fields");
+                pascontent();
             }
             else
             {
@@ -171,14 +193,6 @@ namespace AppProgSystem
                     NbFilesLeftToDo = "0"
                 };
 
-                foreach(var data in list)
-                {
-                    if(data.Name == null)
-                    {
-                        result = true;
-                    }
-                }
-
                 //si fichier vide
                 if (list == null)
                 {
@@ -189,50 +203,62 @@ namespace AppProgSystem
                     File.WriteAllText(pathAvancement, jsondata2);
                     MessageBox.Show("Save created");
                 }
-                else if(result == true)
-                {
-                    foreach (var data in list.Where(x => x.Name == null))
-                    {
-                        data.Name = NameSave;
-                        data.Source = SourceSave;
-                        data.Target = TargetSave;
-                        data.Type = TypeSave;
 
+                else
+                {
+                    foreach (var data in list)
+                    {
+                        if (data.Name == null)
+                        {
+                            result = true;
+                        }
+                    }
+
+                    if (result == true)
+                    {
+                        foreach (var data in list.Where(x => x.Name == null))
+                        {
+                            data.Name = NameSave;
+                            data.Source = SourceSave;
+                            data.Target = TargetSave;
+                            data.Type = TypeSave;
+
+                            jsondata = JsonConvert.SerializeObject(list, Formatting.Indented);
+                            File.WriteAllText(pathSave, jsondata);
+
+                            if (data.Name == NameSave)
+                            {
+                                break;
+                            }
+                        }
+
+                        foreach (var data in list2.Where(x => x.Name == null))
+                        {
+                            data.Name = NameSave;
+
+                            jsondata2 = JsonConvert.SerializeObject(list2, Formatting.Indented);
+                            File.WriteAllText(pathAvancement, jsondata2);
+
+                            if (data.Name == NameSave)
+                            {
+                                break;
+                            }
+                        }
+                        content();
+                    }
+                    //si fichier non vide
+                    else
+                    {
+                        list.Add(Save);
                         jsondata = JsonConvert.SerializeObject(list, Formatting.Indented);
                         File.WriteAllText(pathSave, jsondata);
 
-                        if(data.Name == NameSave)
-                        {
-                            break;
-                        }
-                    }
-
-                    foreach (var data in list2.Where(x => x.Name == null))
-                    {
-                        data.Name = NameSave;
-
+                        list2.Add(avance);
                         jsondata2 = JsonConvert.SerializeObject(list2, Formatting.Indented);
                         File.WriteAllText(pathAvancement, jsondata2);
+                        content();
 
-                        if (data.Name == NameSave)
-                        {
-                            break;
-                        }
                     }
-                    MessageBox.Show("Save created");
-                }
-                //si fichier non vide
-                else
-                {
-                    list.Add(Save);
-                    jsondata = JsonConvert.SerializeObject(list, Formatting.Indented);
-                    File.WriteAllText(pathSave, jsondata);
-
-                    list2.Add(avance);
-                    jsondata2 = JsonConvert.SerializeObject(list2, Formatting.Indented);
-                    File.WriteAllText(pathAvancement, jsondata2);
-                    MessageBox.Show("Save created");
-
                 }   
             }
         }
@@ -242,7 +268,7 @@ namespace AppProgSystem
         {
             if (txt_nom.Text == "")
             {
-                MessageBox.Show("Enter a save");
+                pascontent();
             }
             else
             {
@@ -289,7 +315,7 @@ namespace AppProgSystem
                         File.WriteAllText(pathSave, json);
                     }
                 }
-                MessageBox.Show("Save modified");
+                content();
             }
         }
 
@@ -298,7 +324,7 @@ namespace AppProgSystem
         {
             if (txt_nom.Text == "")
             {
-                MessageBox.Show("Enter a save");
+                pascontent();
             }
             else
             {
@@ -332,7 +358,7 @@ namespace AppProgSystem
                 jsonText2 = JsonConvert.SerializeObject(Data2, Formatting.Indented);
                 File.WriteAllText(pathAvancement, jsonText2);
 
-                MessageBox.Show("Save deleted");
+                content();
             } 
         }
 
@@ -340,7 +366,7 @@ namespace AppProgSystem
         {
             if(txt_nom.Text == "")
             {
-                MessageBox.Show("Enter a save");
+                pascontent();
             }
             else
             {
@@ -416,7 +442,7 @@ namespace AppProgSystem
                             sw.Stop();
                             TimeSpan Timer = sw.Elapsed;
                             Journalier(Name, source, target, Size, Timer);
-                            MessageBox.Show("Save ended");
+                            content();
                         }
 
                         //si c'est pas complet, c'est différentiel
@@ -483,12 +509,12 @@ namespace AppProgSystem
                             sw.Stop();
                             TimeSpan Timer = sw.Elapsed;
                             Journalier(Name, source, target, Size, Timer);
-                            MessageBox.Show("Save ended");
+                            content();
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Source path does not exist!");
+                        pascontent();
                     }
                 }
                 else
@@ -501,7 +527,7 @@ namespace AppProgSystem
         {
             if (txt_nom.Text == "")
             {
-                MessageBox.Show("Please enter Save in Name field to launch the saves");
+                pascontent();
             }
             else
             {
@@ -514,6 +540,32 @@ namespace AppProgSystem
                     Save(data.Name);
                 }
             }
+        }
+
+        public string ExeJS(string pathLangues, string search)
+        {
+            var Jservice = new Model();
+            return Jservice.ReadJsonFile(VerifyFiles(pathLangues), search);
+        }
+        private string VerifyFiles(string path)
+        {
+        BEGIN:
+            if (File.Exists(path))
+            {
+                return path;
+            }
+            else
+            {
+                //in some case just break the execution
+                pascontent();
+                goto BEGIN;
+            }
+        }
+        public string ReadJsonFile(string path, string search)
+        {
+            dynamic jsonFile = JsonConvert.DeserializeObject(File.ReadAllText(path));
+            //Searching in JSON File support multiple parameters
+            return jsonFile.SelectToken(search);
         }
         public void Encrypt()
         {
