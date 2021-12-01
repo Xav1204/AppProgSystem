@@ -569,8 +569,7 @@ namespace AppProgSystem
         }
         public void Encrypt()
         {
-            Process Encrypt = Process.Start("Notepad.exe");
-            Encrypt.WaitForExit();
+            
         }
     }
 }
