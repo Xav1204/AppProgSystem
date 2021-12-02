@@ -567,9 +567,5 @@ namespace AppProgSystem
             //Searching in JSON File support multiple parameters
             return jsonFile.SelectToken(search);
         }
-        public void Encrypt()
-        {
-            
-        }
     }
 }

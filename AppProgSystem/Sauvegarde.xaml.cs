@@ -114,9 +114,7 @@ namespace AppProgSystem
 
         private void Chiffrer_Button_Click(object sender, RoutedEventArgs e)
         {
-            crypto page = new crypto();
-            page.Show();
-            this.Close();
+            
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
