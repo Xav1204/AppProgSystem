@@ -25,6 +25,7 @@ namespace AppProgSystem
             Model.txt_source = Source;
             Model.txt_cible = Cible;
             Model.txt_type = Type;
+            Model.extent = journalier;
         }
 
         public delegate String del_JSON(string path, string search);
@@ -131,6 +132,7 @@ namespace AppProgSystem
             model.Save(valeur_nom);
 
             Nom.Text = "";
+            journalier.Text = "";
         }
 
         private void SequentialSave_Button_Click(object sender, RoutedEventArgs e)
@@ -139,6 +141,7 @@ namespace AppProgSystem
             model.SequentialSave();
 
             Nom.Text = "";
+            journalier.Text = "";
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Diagnostics;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace AppProgSystem
 {
@@ -23,6 +24,7 @@ namespace AppProgSystem
         private string pathSave = "C:\\EasySave\\Save\\Save.json";
         private string pathJournalier = "C:\\EasySave\\Log\\Log_Journalier.json";
         private string pathAvancement = "C:\\EasySave\\Log\\Log_Avancement.json";
+        private string pathJournalierXML = "C:\\EasySave\\Log\\Log_Journalier.xml";
 
         //variable intermédiaire
         public static DataGrid set = new DataGrid();
@@ -30,6 +32,7 @@ namespace AppProgSystem
         public static TextBox txt_source = new TextBox();
         public static TextBox txt_cible = new TextBox();
         public static TextBox txt_type = new TextBox();
+        public static ComboBox extent = new ComboBox();
 
         public void pascontent()
         {
@@ -62,9 +65,6 @@ namespace AppProgSystem
         {
             VerifyFile(pathJournalier);
 
-            var jsondata = File.ReadAllText(pathJournalier);
-            var list = JsonConvert.DeserializeObject<List<log_journalier>>(jsondata);
-
             //strucuture log_journalier
             log_journalier Save = new log_journalier
             {
@@ -73,23 +73,73 @@ namespace AppProgSystem
                 Target = TargetSave,
                 Size = SizeSave.ToString(),
                 FileTransferTime = TransfertSave.ToString(),
-                Time = DateTime.Now,
-                EncryptTime = Temps
+                Time = DateTime.Now
             };
 
-            //si le log journalier est vide
-            if (list == null)
-            {
-                jsondata = "[" + JsonConvert.SerializeObject(Save, Formatting.Indented) + "]";
-                File.WriteAllText(pathJournalier, jsondata);
-            }
+            var choix = extent.Text;
 
-            //si le log journalier est non vide
-            else
+            if (choix == "json")
             {
-                list.Add(Save);
-                jsondata = JsonConvert.SerializeObject(list, Formatting.Indented);
-                File.WriteAllText(pathJournalier, jsondata);
+                var jsondata = File.ReadAllText(pathJournalier);
+                var list = JsonConvert.DeserializeObject<List<log_journalier>>(jsondata);
+
+                //si le log journalier est vide
+                if (list == null)
+                {
+                    jsondata = "[" + JsonConvert.SerializeObject(Save, Formatting.Indented) + "]";
+                    File.WriteAllText(pathJournalier, jsondata);
+                }
+
+                //si le log journalier est non vide
+                else
+                {
+                    list.Add(Save);
+                    jsondata = JsonConvert.SerializeObject(list, Formatting.Indented);
+                    File.WriteAllText(pathJournalier, jsondata);
+                }
+            }
+            if(choix == "xml")
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(log_journalier));
+
+                try
+                {
+                    FileStream stream = File.OpenWrite(pathJournalierXML);
+                    serializer.Serialize(stream, new log_journalier()
+                    {
+                        Name = NameSave,
+                        Source = SourceSave,
+                        Target = TargetSave,
+                        Size = SizeSave.ToString(),
+                        FileTransferTime = TransfertSave.ToString(),
+                        Time = DateTime.Now
+                    });
+
+                    stream.Dispose();
+
+                    FileStream streamread = File.OpenRead(pathJournalierXML);
+
+                    var result = (log_journalier)(serializer.Deserialize(streamread));
+                }
+                catch
+                {
+                    FileStream stream = File.OpenWrite(pathJournalierXML);
+                    serializer.Serialize(stream, new log_journalier()
+                    {
+                        Name = NameSave,
+                        Source = SourceSave,
+                        Target = TargetSave,
+                        Size = SizeSave.ToString(),
+                        FileTransferTime = TransfertSave.ToString(),
+                        Time = DateTime.Now
+                    });
+
+                    stream.Dispose();
+
+                    FileStream streamread = File.OpenRead(pathJournalierXML);
+
+                    var result = (log_journalier)(serializer.Deserialize(streamread));
+                }
             }
         }
 
@@ -323,7 +373,7 @@ namespace AppProgSystem
         //supprimer sauvegarde
         public void Delete()
         {
-            if (txt_nom.Text == "")
+            if (txt_nom.Text == "" & extent.Text == "")
             {
                 pascontent();
             }

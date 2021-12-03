@@ -30,6 +30,10 @@
         <Button Name="btn_create" Click="Create_Button_Click" Content="" HorizontalAlignment="Left" Margin="50,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Name="btn_back" Click="Back_Button_Click" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Button Name="btn_read" Click="Read_Button_Click" Content="" HorizontalAlignment="Left" Margin="529,355,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <ComboBox Name ="journalier" HorizontalAlignment="Center" Margin="0,417,0,0" VerticalAlignment="Top" Width="48">
+            <ComboBoxItem Content="json"></ComboBoxItem>
+            <ComboBoxItem Content="xml"></ComboBoxItem>
+        </ComboBox>
 
     </Grid>
 </Window>
