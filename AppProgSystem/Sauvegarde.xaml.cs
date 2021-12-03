@@ -144,7 +144,7 @@ namespace AppProgSystem
 
         private void Chiffrer_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            Process.Start("C:\\EasySave\\Cryptosoft");
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)
