@@ -20,6 +20,7 @@ namespace AppProgSystem
         public string Size { get; set; }
         public string FileTransferTime { get; set; }
         public DateTime Time { get; set; }
+        public string EncryptTime { get; set; }
     }
     public class log_avancement
     {

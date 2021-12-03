@@ -87,7 +87,6 @@ namespace AppProgSystem
             btn_read.Content = del_js.Invoke(pathLangues, search8);
             btn_save.Content = del_js.Invoke(pathLangues, search9);
             btn_ssave.Content = del_js.Invoke(pathLangues, search10);
-            btn_chiffrer.Content = del_js.Invoke(pathLangues, search11);
         }
 
 
@@ -140,11 +139,6 @@ namespace AppProgSystem
             model.SequentialSave();
 
             Nom.Text = "";
-        }
-
-        private void Chiffrer_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start("C:\\EasySave\\Cryptosoft");
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)

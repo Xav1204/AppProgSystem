@@ -58,7 +58,7 @@ namespace AppProgSystem
         }
 
         //ecrire dans le log journalier les sauvegardes exécutées
-        public void Journalier(string NameSave, string SourceSave, string TargetSave, int SizeSave, TimeSpan TransfertSave)
+        public void Journalier(string NameSave, string SourceSave, string TargetSave, int SizeSave, TimeSpan TransfertSave, string Temps)
         {
             VerifyFile(pathJournalier);
 
@@ -73,7 +73,8 @@ namespace AppProgSystem
                 Target = TargetSave,
                 Size = SizeSave.ToString(),
                 FileTransferTime = TransfertSave.ToString(),
-                Time = DateTime.Now
+                Time = DateTime.Now,
+                EncryptTime = Temps
             };
 
             //si le log journalier est vide
@@ -441,7 +442,10 @@ namespace AppProgSystem
                             //fin timer
                             sw.Stop();
                             TimeSpan Timer = sw.Elapsed;
-                            Journalier(Name, source, target, Size, Timer);
+                            Environment.SetEnvironmentVariable("Name", NameSave);
+                            var temps = Environment.GetEnvironmentVariable("Temps");
+                            cryptosoft();
+                            Journalier(Name, source, target, Size, Timer, temps);
                             content();
                         }
 
@@ -508,7 +512,10 @@ namespace AppProgSystem
                             }
                             sw.Stop();
                             TimeSpan Timer = sw.Elapsed;
-                            Journalier(Name, source, target, Size, Timer);
+                            Environment.SetEnvironmentVariable("Name", NameSave);
+                            var temps = Environment.GetEnvironmentVariable("Temps");
+                            cryptosoft();
+                            Journalier(Name, source, target, Size, Timer, temps);
                             content();
                         }
                     }
@@ -537,7 +544,7 @@ namespace AppProgSystem
                 //pour chaque sauvegarde dans save.json, on exécute save()
                 foreach (var data in Data)
                 {
-                    Save(data.Name);  
+                    Save(data.Name);
                 }
             }
         }
@@ -568,20 +575,10 @@ namespace AppProgSystem
             return jsonFile.SelectToken(search);
         }
 
-        public void logiciel()
+        public void cryptosoft()
         {
-            Process[] pname = Process.GetProcessesByName("notepad");
-
-            if (pname.Length == 0)          //Si le process ne retourne rien, c'est que notepad n'est pas activé.
-            {
-                Process p = Process.Start("explorer.exe");      //Process p lance explorer (a remplacer par CryptoSoft)
-                p.WaitForExit();                                //On ne peut pas toucher au logiciel principal tant que explorer n'est pas fermé
-            }
-            else
-            {
-                Console.Write("run");                           //Si pname retourne qq'chose c'est que notepad est ouvert donc on fait r
-                Console.ReadLine();
-            }
+            Process myprocess = Process.Start("C:\\EasySave\\Cryptosoft\\Cryptosoft.exe");
+            myprocess.WaitForExit();
         }
     }
 }
