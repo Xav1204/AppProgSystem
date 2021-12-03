@@ -1,0 +1,76 @@
+{
+    "FR": {
+      "Save": {
+        "Name": "Nom :",
+        "Source": "Source :",
+        "Target": "Cible :",
+        "Type": "Type :"
+      },
+      "Interface": {
+        "Back": "Retour",
+        "Add": "Ajouter",
+        "Modify": "Modifier",
+        "Delete": "Supprimer",
+        "Read": "Lire",
+        "Execute": "Sauvegarder",
+        "Sequential": "Sauvegarde Sequentielle"
+      }
+    },
+    "EN": {
+      "Save": {
+        "Name": "Name:",
+        "Source": "Source",
+        "Target": "Target ",
+        "Type": "Type"
+      },
+      "Interface": {
+        "Back": "Back",
+        "Add": "Add",
+        "Modify": "Modify",
+        "Delete": "Delete",
+        "Read": "Read",
+        "Execute": "Save",
+        "Sequential": "Sequential Save"
+      }
+    },
+    "ES": {
+      "Save": {
+        "Name": "nombre de la copia de seguridad",
+        "Source": "Origen de la copia de seguridad",
+        "Target": "Destino de la copia de seguridad",
+        "type": "tipo de copia de seguridad"
+      },
+      "Interface": {
+        "take_choice": "Elija una opción de la siguiente lista:",
+        "Add": "Agregar",
+        "Modify": "Editar",
+        "Delete": "Borrar",
+        "Read": "leer",
+        "Execute": "Ejecutar copia de seguridad",
+        "Sequential": "Copia de seguridad secuencial",
+        "Quit": "Dejar",
+        "Option": "tu opción",
+        "press_any_key": "Presione un botón para cerrar la consola..."
+      }
+    },
+    "HT": {
+      "Save": {
+        "Name": "Sovgad non",
+        "Source": "Sovgad sous",
+        "Target": "sib sovgad",
+        "type": "kalite sovgad"
+      },
+      "Interface": {
+        "take_choice": "Chwazi yon opsyon nan lis ki anba la a",
+        "Add": "Ajoute",
+        "Modify": "Modifye",
+        "Delete": "Pou efase",
+        "Read": "Li",
+        "Execute": "Kouri sovgad",
+        "Sequential": "Sovgad sekans",
+        "Quit": "Pou kite",
+        "Option": "Opsyon w la",
+        "press_any_key": "Peze yon bouton pou fèmen konsole a..."
+      }
+    }
+  }
