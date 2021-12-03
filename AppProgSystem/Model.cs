@@ -567,5 +567,21 @@ namespace AppProgSystem
             //Searching in JSON File support multiple parameters
             return jsonFile.SelectToken(search);
         }
+
+        /*public void Encrypt()
+        {
+            Process[] pname = Process.GetProcessesByName("notepad");
+
+            if (pname.Length == 0)          //Si le process ne retourne rien, c'est que notepad n'est pas activé.
+            {
+                Process p = Process.Start("explorer.exe");      //Process p lance explorer (a remplacer par CryptoSoft)
+                p.WaitForExit();                                //On ne peut pas toucher au logiciel principal tant que explorer n'est pas fermé
+            }
+            else
+            {
+                Console.Write("run");                           //Si pname retourne qq'chose c'est que notepad est ouvert donc on fait r
+                Console.ReadLine();
+            }
+        }*/
     }
 }
