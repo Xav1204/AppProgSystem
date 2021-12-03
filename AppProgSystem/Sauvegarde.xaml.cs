@@ -29,6 +29,34 @@ namespace AppProgSystem
 
         public delegate String del_JSON(string path, string search);
 
+        public void freeze()
+        {
+            Console.WriteLine(CheckProcess());
+            if (CheckProcess())
+            {
+                HandlingProcess();
+            }
+        }
+        public static bool CheckProcess()
+        {
+            return System.Diagnostics.Process.GetProcessesByName("notepad").Length != 0;
+        }
+        public static void HandlingProcess()
+        {
+            Process[] allProcessus = Process.GetProcesses();
+            Model process = new Model();
+            //Check if notepad process is already running.
+            foreach (Process unProcessus in allProcessus)
+            {
+                if (unProcessus.ProcessName == "notepad")
+                {
+                    process.pascontent();
+                    unProcessus.WaitForExit();
+                }
+            }
+            process.content();
+        }
+
         public void langue()
         {
             string pathLangues = "C:\\EasySave\\Langues\\Langues.json";
@@ -99,6 +127,7 @@ namespace AppProgSystem
         }
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
+            freeze();
             valeur_nom = Nom.Text;
             model.Save(valeur_nom);
 
@@ -107,6 +136,7 @@ namespace AppProgSystem
 
         private void SequentialSave_Button_Click(object sender, RoutedEventArgs e)
         {
+            freeze();
             model.SequentialSave();
 
             Nom.Text = "";

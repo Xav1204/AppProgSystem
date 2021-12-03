@@ -537,7 +537,7 @@ namespace AppProgSystem
                 //pour chaque sauvegarde dans save.json, on exécute save()
                 foreach (var data in Data)
                 {
-                    Save(data.Name);
+                    Save(data.Name);  
                 }
             }
         }
@@ -568,7 +568,7 @@ namespace AppProgSystem
             return jsonFile.SelectToken(search);
         }
 
-        /*public void Encrypt()
+        public void logiciel()
         {
             Process[] pname = Process.GetProcessesByName("notepad");
 
@@ -582,6 +582,6 @@ namespace AppProgSystem
                 Console.Write("run");                           //Si pname retourne qq'chose c'est que notepad est ouvert donc on fait r
                 Console.ReadLine();
             }
-        }*/
+        }
     }
 }
