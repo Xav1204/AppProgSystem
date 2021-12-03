@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppProgSystem"
         mc:Ignorable="d"
-        Title="Sauvegarde" Height="480" Width="820">
+        Title="EasySave" Height="480" Width="820">
     <Grid>
         <TextBox  Name="Nom" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="147,76,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Name ="lbl_nom" Content="" HorizontalAlignment="Left" Margin="58,76,0,0" VerticalAlignment="Top" FontSize="22"/>
@@ -23,7 +23,6 @@
                 <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="btn_chiffrer" Click="Chiffrer_Button_Click" Content="" HorizontalAlignment="Left" Margin="363,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Name="btn_save" Click="Save_Button_Click" Content="" HorizontalAlignment="Left" Margin="450,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Name="btn_ssave" Click="SequentialSave_Button_Click" Content="" HorizontalAlignment="Left" Margin="575,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Name="btn_delete" Click="Delete_Button_Click" Content="" HorizontalAlignment="Left" Margin="250,411,0,0" VerticalAlignment="Top" FontSize="18"/>
