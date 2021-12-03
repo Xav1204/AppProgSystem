@@ -1,1 +1,1 @@
-# AppProgSystem
+Afin de pouvoir lancer parfaitement l'application EasySave, il suffit de télécharger le .Zip de l'application et de le décompresser. Il faudra ensuite déplacer le fichier EasySave à la racine du C:\ et enfin lancer l'exécutable afin de profiter de celle-ci.
