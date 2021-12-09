@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\CryptoSoftApp\\Cryptosoft\\Cryptosoft\\Cryptosoft.csproj": {}
+    "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\AppProgSystem\\AppProgSystem\\Cryptosoft\\Cryptosoft\\Cryptosoft.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\CryptoSoftApp\\Cryptosoft\\Cryptosoft\\Cryptosoft.csproj": {
+    "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\AppProgSystem\\AppProgSystem\\Cryptosoft\\Cryptosoft\\Cryptosoft.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\CryptoSoftApp\\Cryptosoft\\Cryptosoft\\Cryptosoft.csproj",
+        "projectUniqueName": "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\AppProgSystem\\AppProgSystem\\Cryptosoft\\Cryptosoft\\Cryptosoft.csproj",
         "projectName": "Cryptosoft",
-        "projectPath": "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\CryptoSoftApp\\Cryptosoft\\Cryptosoft\\Cryptosoft.csproj",
+        "projectPath": "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\AppProgSystem\\AppProgSystem\\Cryptosoft\\Cryptosoft\\Cryptosoft.csproj",
         "packagesPath": "C:\\Users\\Utilisateur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\CryptoSoftApp\\Cryptosoft\\Cryptosoft\\obj\\",
+        "outputPath": "C:\\Users\\Utilisateur\\OneDrive - Association Cesi Viacesi mail\\A3\\AppProgSystem\\AppProgSystem\\Cryptosoft\\Cryptosoft\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

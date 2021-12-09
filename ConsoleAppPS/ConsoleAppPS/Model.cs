@@ -67,7 +67,7 @@ namespace ConsoleAppPS
             Console.Write("{0}", languejournalier);
             var choix = Console.ReadLine();
 
-            if(choix == "Json" | choix == "json")
+            if (choix == "Json" | choix == "json")
             {
                 var jsondata = File.ReadAllText(pathJournalier);
                 var list = JsonConvert.DeserializeObject<List<log_journalier>>(jsondata);
@@ -87,6 +87,8 @@ namespace ConsoleAppPS
                     File.WriteAllText(pathJournalier, jsondata);
                 }
             }
+
+
             else
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(log_journalier));
