@@ -1,9 +1,1 @@
-<?xml version="1.0"?>
-<log_journalier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Name>save2</Name>
-  <Source>C:\Users\Utilisateur\Desktop\test1</Source>
-  <Target>C:\Users\Utilisateur\Desktop\test2</Target>
-  <Size>180</Size>
-  <FileTransferTime>00:00:00.0782297</FileTransferTime>
-  <Time>2021-12-03T16:00:44.8888434+01:00</Time>
-</log_journalier>
+
