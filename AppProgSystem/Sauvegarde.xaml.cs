@@ -25,6 +25,7 @@ namespace AppProgSystem
             Model.txt_source = Source;
             Model.txt_cible = Cible;
             Model.txt_type = Type;
+            Model.txt_extension = Extension;
             Model.extent = journalier;
         }
 

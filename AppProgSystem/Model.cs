@@ -32,6 +32,7 @@ namespace AppProgSystem
         public static TextBox txt_source = new TextBox();
         public static TextBox txt_cible = new TextBox();
         public static TextBox txt_type = new TextBox();
+        public static TextBox txt_extension = new TextBox();
         public static ComboBox extent = new ComboBox();
 
         public void pascontent()
