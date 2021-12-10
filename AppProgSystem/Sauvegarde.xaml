@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="EasySave" Height="480" Width="820">
     <Grid>
-        <TextBox  Name="Nom" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="147,76,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
-        <Label Name ="lbl_nom" Content="" HorizontalAlignment="Left" Margin="58,76,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox Name="Source" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="147,156,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
-        <Label Name ="lbl_source" Content="" HorizontalAlignment="Left" Margin="58,156,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox Name="Cible" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="147,238,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
-        <Label Name ="lbl_cible" Content="" HorizontalAlignment="Left" Margin="58,238,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox Name="Type" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="147,320,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
-        <Label Name ="lbl_type" Content="" HorizontalAlignment="Left" Margin="58,320,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <TextBox  Name="Nom" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,50,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <Label Name ="lbl_nom" Content="" HorizontalAlignment="Left" Margin="52,50,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <TextBox Name="Source" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,116,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <Label Name ="lbl_source" Content="" HorizontalAlignment="Left" Margin="52,116,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <TextBox Name="Cible" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,192,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <Label Name ="lbl_cible" Content="" HorizontalAlignment="Left" Margin="52,193,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <TextBox Name="Type" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,266,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <Label Name ="lbl_type" Content="" HorizontalAlignment="Left" Margin="52,266,0,0" VerticalAlignment="Top" FontSize="22"/>
         <DataGrid x:Name="DataRead" Margin="320,29,31,99" AutoGenerateColumns="False" ItemsSource="{Binding Items}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="Auto"/>
@@ -34,6 +34,8 @@
             <ComboBoxItem Content="json"></ComboBoxItem>
             <ComboBoxItem Content="xml"></ComboBoxItem>
         </ComboBox>
+        <TextBox x:Name="Extension" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,336,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <Label x:Name ="lbl_extensiion" Content="Extensions :" HorizontalAlignment="Left" Margin="12,336,0,0" VerticalAlignment="Top" FontSize="22"/>
 
     </Grid>
 </Window>

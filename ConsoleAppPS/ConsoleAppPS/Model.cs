@@ -87,8 +87,6 @@ namespace ConsoleAppPS
                     File.WriteAllText(pathJournalier, jsondata);
                 }
             }
-
-
             else
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(log_journalier));

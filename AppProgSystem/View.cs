@@ -10,6 +10,7 @@ namespace AppProgSystem
         public string Source { get; set; }
         public string Target { get; set; }
         public string Type { get; set; }
+        public string Extension { get; set; }
     }
     public class Items : data_Save { }
     public class log_journalier
