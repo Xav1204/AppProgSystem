@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppProgSystem"
         mc:Ignorable="d"
-        Title="EasySave" Height="480" Width="820">
+        Title="EasySave" Height="480" Width="1080">
     <Grid>
         <TextBox  Name="Nom" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,50,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Name ="lbl_nom" Content="" HorizontalAlignment="Left" Margin="52,50,0,0" VerticalAlignment="Top" FontSize="22"/>
@@ -17,10 +17,39 @@
         <Label Name ="lbl_type" Content="" HorizontalAlignment="Left" Margin="52,266,0,0" VerticalAlignment="Top" FontSize="22"/>
         <DataGrid x:Name="DataRead" Margin="320,29,31,99" AutoGenerateColumns="False" ItemsSource="{Binding Items}">
             <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name ="Play" Content="Play" Click="Click_Data_Play"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name ="Pause" Content="Pause" Click="Click_Data_Pause"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name ="Stop" Content="Stop" Click="Click_Data_Stop"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ProgressBar Width="150"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="Auto"/>
                 <DataGridTextColumn Header="Source" Binding="{Binding Path=Source}" Width="Auto"/>
                 <DataGridTextColumn Header="Target" Binding="{Binding Path=Target}" Width="Auto"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" Width="Auto"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Path=Extension}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Name="btn_save" Click="Save_Button_Click" Content="" HorizontalAlignment="Left" Margin="450,411,0,0" VerticalAlignment="Top" FontSize="18"/>
@@ -29,8 +58,8 @@
         <Button Name="btn_modify" Click="Modify_Button_Click" Content="" HorizontalAlignment="Left" Margin="150,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Name="btn_create" Click="Create_Button_Click" Content="" HorizontalAlignment="Left" Margin="50,411,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Name="btn_back" Click="Back_Button_Click" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button Name="btn_read" Click="Read_Button_Click" Content="" HorizontalAlignment="Left" Margin="529,355,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <ComboBox Name ="journalier" HorizontalAlignment="Center" Margin="0,417,0,0" VerticalAlignment="Top" Width="48">
+        <Button Name="btn_read" Click="Read_Button_Click" Content="" HorizontalAlignment="Left" Margin="675,355,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <ComboBox Name ="journalier" HorizontalAlignment="Left" Margin="373,416,0,0" VerticalAlignment="Top" Width="48">
             <ComboBoxItem Content="json"></ComboBoxItem>
             <ComboBoxItem Content="xml"></ComboBoxItem>
         </ComboBox>

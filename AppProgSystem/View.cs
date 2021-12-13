@@ -19,6 +19,7 @@ namespace AppProgSystem
         public string Source { get; set; }
         public string Target { get; set; }
         public string Size { get; set; }
+        public string Extension { get; set; }
         public string FileTransferTime { get; set; }
         public DateTime Time { get; set; }
         public string EncryptTime { get; set; }

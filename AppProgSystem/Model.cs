@@ -21,6 +21,7 @@ namespace AppProgSystem
         private string Source;
         private string Target;
         private string Type;
+        private string Extension;
         private string pathSave = "C:\\EasySave\\Save\\Save.json";
         private string pathJournalier = "C:\\EasySave\\Log\\Log_Journalier.json";
         private string pathAvancement = "C:\\EasySave\\Log\\Log_Avancement.json";
@@ -62,7 +63,7 @@ namespace AppProgSystem
         }
 
         //ecrire dans le log journalier les sauvegardes exécutées
-        public void Journalier(string NameSave, string SourceSave, string TargetSave, int SizeSave, TimeSpan TransfertSave, string Temps)
+        public void Journalier(string NameSave, string SourceSave, string TargetSave, int SizeSave, string extension, TimeSpan TransfertSave)
         {
             VerifyFile(pathJournalier);
 
@@ -72,6 +73,7 @@ namespace AppProgSystem
                 Name = NameSave,
                 Source = SourceSave,
                 Target = TargetSave,
+                Extension = extension,
                 Size = SizeSave.ToString(),
                 FileTransferTime = TransfertSave.ToString(),
                 Time = DateTime.Now
@@ -111,6 +113,7 @@ namespace AppProgSystem
                         Name = NameSave,
                         Source = SourceSave,
                         Target = TargetSave,
+                        Extension = extension,
                         Size = SizeSave.ToString(),
                         FileTransferTime = TransfertSave.ToString(),
                         Time = DateTime.Now
@@ -130,6 +133,7 @@ namespace AppProgSystem
                         Name = NameSave,
                         Source = SourceSave,
                         Target = TargetSave,
+                        Extension = extension,
                         Size = SizeSave.ToString(),
                         FileTransferTime = TransfertSave.ToString(),
                         Time = DateTime.Now
@@ -187,7 +191,7 @@ namespace AppProgSystem
             {
                 foreach(var data in table)
                 {
-                    items.Add(new Items { Name = data.Name, Source = data.Source, Target = data.Target, Type = data.Type });
+                    items.Add(new Items { Name = data.Name, Source = data.Source, Target = data.Target, Type = data.Type, Extension = data.Extension });
                 }
                 set.ItemsSource = items;
             }
@@ -199,21 +203,16 @@ namespace AppProgSystem
         }
 
         //créer une sauvegarde avec ses paramètres en entrée
-        public void Create(string NameSave, string SourceSave, string TargetSave, string TypeSave)
+        public void Create(string NameSave, string SourceSave, string TargetSave, string TypeSave, string extension)
         {
             var result = false;
 
-            if (txt_nom.Text == "" & txt_source.Text == "" & txt_cible.Text == "" & txt_type.Text == "")
+            if (txt_nom.Text == "" | txt_source.Text == "" | txt_cible.Text == "" | txt_type.Text == "" | txt_extension.Text == "")
             {
                 pascontent();
             }
             else
             {
-                Name = NameSave;
-                Source = SourceSave;
-                Target = TargetSave;
-                Type = TypeSave;
-
                 VerifyFile(pathSave);
                 VerifyFile(pathAvancement);
 
@@ -229,7 +228,8 @@ namespace AppProgSystem
                     Name = NameSave,
                     Source = SourceSave,
                     Target = TargetSave,
-                    Type = TypeSave
+                    Type = TypeSave,
+                    Extension = extension
                 };
 
                 //structure log_avancement
@@ -274,6 +274,7 @@ namespace AppProgSystem
                             data.Source = SourceSave;
                             data.Target = TargetSave;
                             data.Type = TypeSave;
+                            data.Extension = extension;
 
                             jsondata = JsonConvert.SerializeObject(list, Formatting.Indented);
                             File.WriteAllText(pathSave, jsondata);
@@ -366,6 +367,15 @@ namespace AppProgSystem
                         json = JsonConvert.SerializeObject(Data, Formatting.Indented);
                         File.WriteAllText(pathSave, json);
                     }
+                    if (txt_nom.Text != "" & txt_extension.Text != "")
+                    {
+                        var modif = txt_extension.Text;
+
+                        data.Extension = modif;
+
+                        json = JsonConvert.SerializeObject(Data, Formatting.Indented);
+                        File.WriteAllText(pathSave, json);
+                    }
                 }
                 content();
             }
@@ -398,6 +408,7 @@ namespace AppProgSystem
                     data.Target = null;
                     data.Type = null;
                     data.Name = null;
+                    data.Extension = null;
                 }
                 jsonText = JsonConvert.SerializeObject(Data, Formatting.Indented);
                 File.WriteAllText(pathSave, jsonText);
@@ -431,6 +442,7 @@ namespace AppProgSystem
                     Source = data.Source;
                     Target = data.Target;
                     Type = data.Type;
+                    Extension = data.Extension;
                 }
 
                 //on vérifie si la cible existe
@@ -444,6 +456,7 @@ namespace AppProgSystem
                         {
                             var source = Source;
                             var target = Target;
+                            var chiffre = Extension;
                             string[] files = Directory.GetFiles(Source);
                             string[] Files = Directory.GetFiles(Source);
 
@@ -493,10 +506,13 @@ namespace AppProgSystem
                             //fin timer
                             sw.Stop();
                             TimeSpan Timer = sw.Elapsed;
-                            Environment.SetEnvironmentVariable("Name", NameSave);
-                            var temps = Environment.GetEnvironmentVariable("Temps");
-                            cryptosoft();
-                            Journalier(Name, source, target, Size, Timer, temps);
+                            Journalier(Name, source, target, Size, Extension, Timer);
+                            Process p = new Process();
+                            p.StartInfo.FileName = @"C:\EasySave\Cryptosoft\Cryptosoft.exe";
+                            string str = source.ToString() + " " + target.ToString() + " " + chiffre.ToString();
+                            p.StartInfo.Arguments = str;
+                            p.Start();
+                            p.WaitForExit();
                             content();
                         }
 
@@ -505,7 +521,7 @@ namespace AppProgSystem
                         {
                             var source = Source;
                             var target = Target;
-
+                            var chiffre = Extension;
                             string[] files = Directory.GetFiles(Source);
                             string[] Files = Directory.GetFiles(Target);
 
@@ -563,10 +579,13 @@ namespace AppProgSystem
                             }
                             sw.Stop();
                             TimeSpan Timer = sw.Elapsed;
-                            Environment.SetEnvironmentVariable("Name", NameSave);
-                            var temps = Environment.GetEnvironmentVariable("Temps");
-                            cryptosoft();
-                            Journalier(Name, source, target, Size, Timer, temps);
+                            Journalier(Name, source, target, Size, Extension, Timer);
+                            Process p = new Process();
+                            p.StartInfo.FileName = @"C:\EasySave\Cryptosoft\Cryptosoft.exe";
+                            string str = source.ToString() + " " + target.ToString() + " " + chiffre.ToString();
+                            p.StartInfo.Arguments = str;
+                            p.Start();
+                            p.WaitForExit();
                             content();
                         }
                     }

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Controls;
 
 namespace AppProgSystem
 {
@@ -14,6 +15,7 @@ namespace AppProgSystem
         private string valeur_source;
         private string valeur_cible;
         private string valeur_type;
+        private string valeur_extension;
 
         Model model = new Model();
 
@@ -91,7 +93,18 @@ namespace AppProgSystem
             btn_ssave.Content = del_js.Invoke(pathLangues, search10);
         }
 
+        private void Click_Data_Play(object sender, RoutedEventArgs e)
+        {
+            
+        }
+        private void Click_Data_Pause(object sender, RoutedEventArgs e)
+        {
 
+        }
+        private void Click_Data_Stop(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void Read_Button_Click(object sender, RoutedEventArgs e)
         {
             model.Read();
@@ -103,13 +116,15 @@ namespace AppProgSystem
             valeur_source = Source.Text;
             valeur_cible = Cible.Text;
             valeur_type = Type.Text;
+            valeur_extension = Extension.Text;
 
-            model.Create(valeur_nom, valeur_source, valeur_cible, valeur_type);
+            model.Create(valeur_nom, valeur_source, valeur_cible, valeur_type, valeur_extension);
 
             Nom.Text = "";
             Source.Text = "";
             Cible.Text = "";
             Type.Text = "";
+            Extension.Text = "";
         }
 
         private void Modify_Button_Click(object sender, RoutedEventArgs e)
@@ -119,6 +134,7 @@ namespace AppProgSystem
             Source.Text = "";
             Cible.Text = "";
             Type.Text = "";
+            Extension.Text = "";
         }
 
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
