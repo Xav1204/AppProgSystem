@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppProgSystem"
         mc:Ignorable="d"
-        Title="EasySave" Height="480" Width="1080">
+        Title="EasySave" Height="550" Width="1080">
     <Grid>
         <TextBox  Name="Nom" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,50,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Name ="lbl_nom" Content="" HorizontalAlignment="Left" Margin="52,50,0,0" VerticalAlignment="Top" FontSize="22"/>
@@ -15,6 +15,15 @@
         <Label Name ="lbl_cible" Content="" HorizontalAlignment="Left" Margin="52,193,0,0" VerticalAlignment="Top" FontSize="22"/>
         <TextBox Name="Type" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,266,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
         <Label Name ="lbl_type" Content="" HorizontalAlignment="Left" Margin="52,266,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <TextBox x:Name="Extension" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,336,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <Label x:Name ="lbl_extensiion" Content="Extensions :" HorizontalAlignment="Left" Margin="12,336,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <TextBox x:Name="Priorite" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,400,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
+        <Label x:Name ="lbl_priorite" Content="" HorizontalAlignment="Left" Margin="7,400,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label x:Name ="lbl_log" Content="" HorizontalAlignment="Left" Margin="7,468,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <ComboBox Name ="journalier" HorizontalAlignment="Left" Margin="141,471,0,0" VerticalAlignment="Top" Width="131" Height="36">
+            <ComboBoxItem Content="json"></ComboBoxItem>
+            <ComboBoxItem Content="xml"></ComboBoxItem>
+        </ComboBox>
         <DataGrid x:Name="DataRead" Margin="320,29,31,99" AutoGenerateColumns="False" ItemsSource="{Binding Items}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
@@ -41,7 +50,7 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ProgressBar Width="150"/>
+                            <ProgressBar Name ="progress" Width="150"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -49,22 +58,15 @@
                 <DataGridTextColumn Header="Source" Binding="{Binding Path=Source}" Width="Auto"/>
                 <DataGridTextColumn Header="Target" Binding="{Binding Path=Target}" Width="Auto"/>
                 <DataGridTextColumn Header="Type" Binding="{Binding Path=Type}" Width="Auto"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding Path=Extension}" Width="Auto"/>
+                <DataGridTextColumn Header="Extension" Binding="{Binding Path=Extension}" Width="Auto"/>
+                <DataGridTextColumn Header="Priorities" Binding="{Binding Path=Priorite}" Width="Auto"/>
+                <DataGridTextColumn Header="Format" Binding="{Binding Path=Log}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name="btn_save" Click="Save_Button_Click" Content="" HorizontalAlignment="Left" Margin="450,411,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Button Name="btn_ssave" Click="SequentialSave_Button_Click" Content="" HorizontalAlignment="Left" Margin="575,411,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Button Name="btn_delete" Click="Delete_Button_Click" Content="" HorizontalAlignment="Left" Margin="250,411,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Button Name="btn_modify" Click="Modify_Button_Click" Content="" HorizontalAlignment="Left" Margin="150,411,0,0" VerticalAlignment="Top" FontSize="18"/>
-        <Button Name="btn_create" Click="Create_Button_Click" Content="" HorizontalAlignment="Left" Margin="50,411,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Button Name="btn_delete" Click="Delete_Button_Click" Content="" HorizontalAlignment="Left" Margin="592,461,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Button Name="btn_modify" Click="Modify_Button_Click" Content="" HorizontalAlignment="Left" Margin="492,461,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Button Name="btn_create" Click="Create_Button_Click" Content="" HorizontalAlignment="Left" Margin="392,461,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button Name="btn_back" Click="Back_Button_Click" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button Name="btn_read" Click="Read_Button_Click" Content="" HorizontalAlignment="Left" Margin="675,355,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <ComboBox Name ="journalier" HorizontalAlignment="Left" Margin="373,416,0,0" VerticalAlignment="Top" Width="48">
-            <ComboBoxItem Content="json"></ComboBoxItem>
-            <ComboBoxItem Content="xml"></ComboBoxItem>
-        </ComboBox>
-        <TextBox x:Name="Extension" TextWrapping="NoWrap" AcceptsReturn="False" HorizontalAlignment="Left" Margin="141,336,0,0" Text="" VerticalAlignment="Top" Width="131" Height="45" FontSize="22"/>
-        <Label x:Name ="lbl_extensiion" Content="Extensions :" HorizontalAlignment="Left" Margin="12,336,0,0" VerticalAlignment="Top" FontSize="22"/>
-
+        <Button Name="btn_read" Click="Read_Button_Click" Content="" HorizontalAlignment="Left" Margin="807,464,0,0" VerticalAlignment="Top" FontSize="16"/>
     </Grid>
 </Window>

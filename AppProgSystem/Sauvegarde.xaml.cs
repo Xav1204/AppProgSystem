@@ -3,6 +3,7 @@ using System.Windows;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace AppProgSystem
 {
@@ -16,6 +17,8 @@ namespace AppProgSystem
         private string valeur_cible;
         private string valeur_type;
         private string valeur_extension;
+        private string valeur_priorite;
+        private string valeur_log;
 
         Model model = new Model();
 
@@ -28,6 +31,7 @@ namespace AppProgSystem
             Model.txt_cible = Cible;
             Model.txt_type = Type;
             Model.txt_extension = Extension;
+            Model.txt_priorite = Priorite;
             Model.extent = journalier;
         }
 
@@ -61,6 +65,18 @@ namespace AppProgSystem
             process.content();
         }
 
+        void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //initialisation de la barre de progression avec le pourcentage de progression
+            //progress.Value = e.ProgressPercentage;
+
+            //Affichage de la progression sur un label
+            //lb_etat_prog_server.Content = pbstatus1.Value.ToString() + "%";
+
+
+
+        }
+
         public void langue()
         {
             string pathLangues = "C:\\EasySave\\Langues\\Langues.json";
@@ -73,9 +89,8 @@ namespace AppProgSystem
             string search6 = MainWindow.choix + ".Interface.Modify";
             string search7 = MainWindow.choix + ".Interface.Delete";
             string search8 = MainWindow.choix + ".Interface.Read";
-            string search9 = MainWindow.choix + ".Interface.Execute";
-            string search10 = MainWindow.choix + ".Interface.Sequential";
-            string search11 = MainWindow.choix + ".Interface.Encrypt";
+            string search10 = MainWindow.choix + ".Save.Log";
+            string search12 = MainWindow.choix + ".Save.Priorite";
             // to make one time at start of code to declare method and delegate
             var js = new Model();
             del_JSON del_js = new del_JSON(js.ExeJS);
@@ -84,22 +99,23 @@ namespace AppProgSystem
             lbl_source.Content = del_js.Invoke(pathLangues, search1);
             lbl_cible.Content = del_js.Invoke(pathLangues, search2);
             lbl_type.Content = del_js.Invoke(pathLangues, search3);
+            lbl_priorite.Content = del_js.Invoke(pathLangues, search12);
+            lbl_log.Content = del_js.Invoke(pathLangues, search10);
             btn_back.Content = del_js.Invoke(pathLangues, search4);
             btn_create.Content = del_js.Invoke(pathLangues, search5);
             btn_modify.Content = del_js.Invoke(pathLangues, search6);
             btn_delete.Content = del_js.Invoke(pathLangues, search7);
             btn_read.Content = del_js.Invoke(pathLangues, search8);
-            btn_save.Content = del_js.Invoke(pathLangues, search9);
-            btn_ssave.Content = del_js.Invoke(pathLangues, search10);
+
         }
 
         private void Click_Data_Play(object sender, RoutedEventArgs e)
         {
-            
+            model.Play();
         }
         private void Click_Data_Pause(object sender, RoutedEventArgs e)
         {
-
+            model.Pause();
         }
         private void Click_Data_Stop(object sender, RoutedEventArgs e)
         {
@@ -117,14 +133,18 @@ namespace AppProgSystem
             valeur_cible = Cible.Text;
             valeur_type = Type.Text;
             valeur_extension = Extension.Text;
+            valeur_priorite = Priorite.Text;
+            valeur_log = journalier.Text;
 
-            model.Create(valeur_nom, valeur_source, valeur_cible, valeur_type, valeur_extension);
+            model.Create(valeur_nom, valeur_source, valeur_cible, valeur_type, valeur_extension, valeur_priorite, valeur_log);
 
             Nom.Text = "";
             Source.Text = "";
             Cible.Text = "";
             Type.Text = "";
             Extension.Text = "";
+            Priorite.Text = "";
+            journalier.Text = "";
         }
 
         private void Modify_Button_Click(object sender, RoutedEventArgs e)
@@ -135,30 +155,14 @@ namespace AppProgSystem
             Cible.Text = "";
             Type.Text = "";
             Extension.Text = "";
+            Priorite.Text = "";
+            journalier.Text = "";
         }
 
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
             model.Delete();
             Nom.Text = "";
-        }
-        private void Save_Button_Click(object sender, RoutedEventArgs e)
-        {
-            freeze();
-            valeur_nom = Nom.Text;
-            model.Save(valeur_nom);
-
-            Nom.Text = "";
-            journalier.Text = "";
-        }
-
-        private void SequentialSave_Button_Click(object sender, RoutedEventArgs e)
-        {
-            freeze();
-            model.SequentialSave();
-
-            Nom.Text = "";
-            journalier.Text = "";
         }
 
         private void Back_Button_Click(object sender, RoutedEventArgs e)

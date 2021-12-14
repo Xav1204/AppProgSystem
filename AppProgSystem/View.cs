@@ -11,8 +11,12 @@ namespace AppProgSystem
         public string Target { get; set; }
         public string Type { get; set; }
         public string Extension { get; set; }
+        public string Priorite { get; set; }
+        public string Log { get; set; }
     }
-    public class Items : data_Save { }
+    public class Items : data_Save
+    {
+    }
     public class log_journalier
     {
         public string Name { get; set; }
