@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.ComponentModel;
 
 namespace AppProgSystem
 {
@@ -14,9 +14,9 @@ namespace AppProgSystem
         public string Priorite { get; set; }
         public string Log { get; set; }
     }
-    public class Items : data_Save
-    {
-    }
+
+
+    public class Items : data_Save { }
     public class log_journalier
     {
         public string Name { get; set; }

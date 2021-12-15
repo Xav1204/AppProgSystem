@@ -9,6 +9,8 @@ using System.Threading;
 using System.Diagnostics;
 using System.Text;
 using System.Xml.Serialization;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace AppProgSystem
 {
@@ -550,7 +552,6 @@ namespace AppProgSystem
                                 //on recupère la taille en octets du dossier
                                 foreach (string F in Files)
                                 {
-                                    // Use static Path methods to extract only the file name from the path.
                                     var fileName = Path.GetFileName(F);
                                     var destFile = Path.Combine(Target, fileName);
                                     File.Copy(F, destFile, true);
@@ -573,7 +574,7 @@ namespace AppProgSystem
                             foreach (string s in files)
                             {
                                 for (int i = 0; i < TotalFiles; i++)
-                                {
+                                { 
                                     try
                                     {
                                         FileToDo--;
@@ -631,11 +632,12 @@ namespace AppProgSystem
                             {
                                 foreach (string F in Files)
                                 {
-                                    var fileName = Path.GetFileName(f);
-                                    var destFile = Path.Combine(Target, fileName);
-                                    File.Copy(f, destFile, true);
+
                                     if (f.Length != F.Length)
                                     {
+                                        var fileName = Path.GetFileName(f);
+                                        var destFile = Path.Combine(Target, fileName);
+                                        File.Copy(f, destFile, true);
                                         TotalSize += f.Length - F.Length;
                                         TotalFiles += 1;
                                     }
