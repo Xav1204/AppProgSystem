@@ -241,7 +241,7 @@ namespace AppProgSystem
         {
             var result = false;
 
-            if (txt_nom.Text == "" | txt_source.Text == "" | txt_cible.Text == "" | txt_type.Text == "" | txt_extension.Text == "" | extent.Text == "" | txt_priorite.Text == "")
+            if (txt_nom.Text == "" | txt_source.Text == "" | txt_cible.Text == "" | txt_type.Text == ""  | extent.Text == "" )
             {
                 pascontent();
             }
