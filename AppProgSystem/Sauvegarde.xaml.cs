@@ -65,18 +65,6 @@ namespace AppProgSystem
             process.content();
         }
 
-        void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            //initialisation de la barre de progression avec le pourcentage de progression
-            //progress.Value = e.ProgressPercentage;
-
-            //Affichage de la progression sur un label
-            //lb_etat_prog_server.Content = pbstatus1.Value.ToString() + "%";
-
-
-
-        }
-
         public void langue()
         {
             string pathLangues = "C:\\EasySave\\Langues\\Langues.json";
