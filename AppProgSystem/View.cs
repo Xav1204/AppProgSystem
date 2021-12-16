@@ -16,7 +16,10 @@ namespace AppProgSystem
     }
 
 
-    public class Items : data_Save { }
+    public class Items : data_Save
+    {
+        public int progress{ get; set;}
+    }
     public class log_journalier
     {
         public string Name { get; set; }
@@ -24,6 +27,7 @@ namespace AppProgSystem
         public string Target { get; set; }
         public string Size { get; set; }
         public string Extension { get; set; }
+        public string Priorite { get; set; }
         public string FileTransferTime { get; set; }
         public DateTime Time { get; set; }
         public string EncryptTime { get; set; }

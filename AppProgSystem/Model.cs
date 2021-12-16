@@ -11,12 +11,13 @@ using System.Text;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
+using System.Threading.Tasks;
 
 namespace AppProgSystem
 {
     public class Model
-    {
-        public delegate String del_JSON(string path, string search);        
+    {  
 
         //variable model
         public string Name;
@@ -24,11 +25,12 @@ namespace AppProgSystem
         public string Target;
         public string Type;
         public string Extension;
+        public string Priorite;
         public string pathSave = "C:\\EasySave\\Save\\Save.json";
         public string pathJournalier = "C:\\EasySave\\Log\\Log_Journalier.json";
         public string pathAvancement = "C:\\EasySave\\Log\\Log_Avancement.json";
         public string pathJournalierXML = "C:\\EasySave\\Log\\Log_Journalier.xml";
-        public int index = 0;
+        public Thread thr;
 
         //variable intermédiaire
         public static DataGrid set = new DataGrid();
@@ -67,7 +69,7 @@ namespace AppProgSystem
         }
 
         //ecrire dans le log journalier les sauvegardes exécutées
-        public void Journalier(string NameSave, string SourceSave, string TargetSave, int SizeSave, string extension, TimeSpan TransfertSave)
+        public void Journalier(string NameSave, string SourceSave, string TargetSave, int SizeSave, string extension, string priorite, TimeSpan TransfertSave, TimeSpan temps)
         {
             var json = File.ReadAllText(pathSave);
             var List = JsonConvert.DeserializeObject<List<data_Save>>(json);
@@ -86,10 +88,11 @@ namespace AppProgSystem
                     Source = SourceSave,
                     Target = TargetSave,
                     Extension = extension,
+                    Priorite = priorite,
                     Size = SizeSave.ToString(),
                     FileTransferTime = TransfertSave.ToString(),
                     Time = DateTime.Now,
-                    EncryptTime = "0"
+                    EncryptTime = temps.ToString(),
                 };
 
                 if (data.Log == "json")
@@ -123,9 +126,11 @@ namespace AppProgSystem
                             Source = SourceSave,
                             Target = TargetSave,
                             Extension = extension,
+                            Priorite = priorite,
                             Size = SizeSave.ToString(),
                             FileTransferTime = TransfertSave.ToString(),
-                            Time = DateTime.Now
+                            Time = DateTime.Now,
+                            EncryptTime = temps.ToString()
                         });
 
                         stream.Dispose();
@@ -143,9 +148,11 @@ namespace AppProgSystem
                             Source = SourceSave,
                             Target = TargetSave,
                             Extension = extension,
+                            Priorite = priorite,
                             Size = SizeSave.ToString(),
                             FileTransferTime = TransfertSave.ToString(),
-                            Time = DateTime.Now
+                            Time = DateTime.Now,
+                            EncryptTime = temps.ToString()
                         });
 
                         stream.Dispose();
@@ -213,28 +220,39 @@ namespace AppProgSystem
             }
             
         }
+       
         public delegate void work(string NameSave);
+
         public void Play()
         {
-            string jsondata = File.ReadAllText(pathSave);
-            List<data_Save> list = JsonConvert.DeserializeObject<List<data_Save>>(jsondata);
-
-            work[] dt = new work[list.Count];
-
             Items items = set.SelectedItem as Items;
             var nom = items.Name;
 
+
             Save Play = new Save();
+            thr = new Thread(new ThreadStart(() => Play.Sauvegarde(nom)));
+            thr.Name = nom;
+            thr.IsBackground = true;
+            thr.Start();
 
-            work obj = new work(Play.Sauvegarde);
-            obj.Invoke(nom);
-
-            dt[index] = obj;
-
-            index++;
         }
 
+        private ManualResetEvent _Event = new ManualResetEvent(true);
         public void Pause()
+        {
+            try
+            {
+                thr.Abort();
+                MessageBox.Show("arret");
+            }
+            catch
+            {
+                MessageBox.Show("pas arret");
+            }
+            
+        }
+
+        public void Stop()
         {
         }
 
@@ -291,7 +309,6 @@ namespace AppProgSystem
 
                     jsondata2 = "[" + JsonConvert.SerializeObject(avance, Formatting.Indented) + "]";
                     File.WriteAllText(pathAvancement, jsondata2);
-                    MessageBox.Show("Save created");
                 }
 
                 else
@@ -512,8 +529,8 @@ namespace AppProgSystem
             //Searching in JSON File support multiple parameters
             return jsonFile.SelectToken(search);
         }
-        
-        class Save : Model
+
+        public class Save : Model
         {
             public void Sauvegarde(string NameSave)
             {
@@ -527,6 +544,7 @@ namespace AppProgSystem
                     Target = data.Target;
                     Type = data.Type;
                     Extension = data.Extension;
+                    Priorite = data.Priorite;
                 }
 
                 //on vérifie si la cible existe
@@ -541,51 +559,56 @@ namespace AppProgSystem
                             var source = Source;
                             var target = Target;
                             var chiffre = Extension;
+                            var prioritee = Priorite;
+
                             string[] files = Directory.GetFiles(Source);
                             string[] Files = Directory.GetFiles(Source);
 
                             int TotalSize = 0;
+                            int Size = 0;
                             string state = "Active";
-
-                            try
-                            {
-                                //on recupère la taille en octets du dossier
-                                foreach (string F in Files)
-                                {
-                                    var fileName = Path.GetFileName(F);
-                                    var destFile = Path.Combine(Target, fileName);
-                                    File.Copy(F, destFile, true);
-                                    TotalSize += F.Length;
-                                }
-                            }
-                            catch
-                            {
-                                Thread.Sleep(500);
-                            }
-
-                            int Size = TotalSize;
                             float Progression = 0;
+
                             //début timer pour le temps
                             var sw = Stopwatch.StartNew();
+
                             //récupérer nombre de fichiers dans le dossier
                             int TotalFiles = Directory.GetFiles(Source, "*.*", SearchOption.TopDirectoryOnly).Length;
                             int FileToDo = TotalFiles;
 
-                            foreach (string s in files)
+                            //on recupère la taille en octets du dossier
+                            foreach (string F in Files)
+                            {
+                                var fileName = Path.GetFileName(F);
+                                var destFile = Path.Combine(Target, fileName);
+                                var prio = Path.GetFileNameWithoutExtension(F);
+
+
+                                if (prioritee != null)
+                                {
+
+                                    foreach (string C in Files.Where(x => fileName == prio + prioritee))
+                                    {
+                                        File.Copy(C, destFile, true);
+                                    }
+                                }
+                                File.Copy(F, destFile, true);
+
+                                TotalSize += F.Length;
+                            }
+
+                            Size = TotalSize;
+                            foreach (var s in files)
                             {
                                 for (int i = 0; i < TotalFiles; i++)
-                                { 
-                                    try
-                                    {
-                                        FileToDo--;
-                                        var fileName = Path.GetFileName(s);
-                                        var destFile = Path.Combine(Target, fileName);
-                                        File.Copy(s, destFile, true);
-                                    }
-                                    catch
-                                    {
-                                        Thread.Sleep(1000);
-                                    }
+                                {
+
+                                        //var items = new ObservableCollection<Items>();
+                                       // items.Add(new Items() { progress = (((TotalFiles - FileToDo) * TotalFiles) / 100) });
+                                        //set.ItemsSource = items;
+
+                                    FileToDo--;
+
                                     // quand on a plus de fichiers à copier, on met tout à zéro
                                     if (FileToDo == 0)
                                     {
@@ -601,17 +624,28 @@ namespace AppProgSystem
                                     Avancement(Name, Source, Target, state, TotalFiles, TotalSize, FileToDo, Progression);
                                 }
                             }
+                            Stopwatch stopwatch = new Stopwatch();
+                            stopwatch.Start();
                             Process p = new Process();
                             p.StartInfo.FileName = @"C:\EasySave\Cryptosoft\Cryptosoft.exe";
                             string str = source.ToString() + " " + target.ToString() + " " + chiffre.ToString();
                             p.StartInfo.Arguments = str;
                             p.Start();
                             p.WaitForExit();
+                            stopwatch.Stop();
                             //fin timer
                             sw.Stop();
                             TimeSpan Timer = sw.Elapsed;
-                            Journalier(Name, source, target, Size, Extension, Timer);
-                            //content();
+                            TimeSpan temps = stopwatch.Elapsed;
+                            try
+                            {
+                                Journalier(Name, source, target, Size, Extension, Priorite, Timer, temps);
+                            }
+                            catch
+                            {
+                                Thread.Sleep(500);
+                            }
+                            content();
                         }
 
                         //si c'est pas complet, c'est différentiel
@@ -620,6 +654,7 @@ namespace AppProgSystem
                             var source = Source;
                             var target = Target;
                             var chiffre = Extension;
+                            var prioritee = Priorite;
                             string[] files = Directory.GetFiles(Source);
                             string[] Files = Directory.GetFiles(Target);
 
@@ -637,12 +672,23 @@ namespace AppProgSystem
                                     {
                                         var fileName = Path.GetFileName(f);
                                         var destFile = Path.Combine(Target, fileName);
+                                        var prio = Path.GetFileNameWithoutExtension(f);
+                                        if (prioritee != null)
+                                        {
+                                            foreach (string C in Files.Where(x => fileName == prio + prioritee))
+                                            {
+                                                File.Copy(C, destFile, true);
+                                            }
+                                        }
+
                                         File.Copy(f, destFile, true);
+                                        
                                         TotalSize += f.Length - F.Length;
                                         TotalFiles += 1;
                                     }
                                 }
                             }
+
                             int Size = TotalSize;
                             float Progression = 0;
                             var sw = Stopwatch.StartNew();
@@ -657,9 +703,7 @@ namespace AppProgSystem
                                         for (int i = 0; i < TotalFiles; i++)
                                         {
                                             FileToDo--;
-                                            var fileName = Path.GetFileName(s);
-                                            var destFile = Path.Combine(Target, fileName);
-                                            File.Copy(s, destFile, true);
+
                                             if (FileToDo == 0)
                                             {
                                                 Source = "";
@@ -676,15 +720,19 @@ namespace AppProgSystem
                                     }
                                 }
                             }
+                            Stopwatch stopwatch = new Stopwatch();
+                            stopwatch.Start();
                             Process p = new Process();
                             p.StartInfo.FileName = @"C:\EasySave\Cryptosoft\Cryptosoft.exe";
                             string str = source.ToString() + " " + target.ToString() + " " + chiffre.ToString();
                             p.StartInfo.Arguments = str;
                             p.Start();
                             p.WaitForExit();
+                            stopwatch.Stop();
                             sw.Stop();
                             TimeSpan Timer = sw.Elapsed;
-                            Journalier(Name, source, target, Size, Extension, Timer);
+                            TimeSpan temps = stopwatch.Elapsed;
+                            Journalier(Name, source, target, Size, Extension, Priorite, Timer, temps);
                             content();
                         }
                     }
@@ -697,7 +745,6 @@ namespace AppProgSystem
                 {
                     Directory.CreateDirectory(Target);
                 }
-                index--;
             }
         }
     }

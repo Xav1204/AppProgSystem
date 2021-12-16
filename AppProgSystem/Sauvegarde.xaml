@@ -47,6 +47,13 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ProgressBar Value="{Binding progress}" Width="150"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="Auto"/>
                 <DataGridTextColumn Header="Source" Binding="{Binding Path=Source}" Width="Auto"/>
                 <DataGridTextColumn Header="Target" Binding="{Binding Path=Target}" Width="Auto"/>
