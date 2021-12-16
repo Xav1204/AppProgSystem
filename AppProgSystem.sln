@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProgSystem", "AppProgSys
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppPS", "ConsoleAppPS\ConsoleAppPS\ConsoleAppPS.csproj", "{2CB19DD9-61C4-4EB9-854C-33CD1EE2D7A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptosoft", "Cryptosoft\Cryptosoft.csproj", "{4251DA05-DEBF-40AA-8873-486F124D64F2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WS_Synchronisation", "..\..\WS_Synchronisation\WS_Synchronisation\WS_Synchronisation.csproj", "{2A9AEC1E-5803-4654-AC83-AE63FEC71E6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptosoft", "Cryptosoft\Cryptosoft.csproj", "{4251DA05-DEBF-40AA-8873-486F124D64F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{4251DA05-DEBF-40AA-8873-486F124D64F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4251DA05-DEBF-40AA-8873-486F124D64F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4251DA05-DEBF-40AA-8873-486F124D64F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2A9AEC1E-5803-4654-AC83-AE63FEC71E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A9AEC1E-5803-4654-AC83-AE63FEC71E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A9AEC1E-5803-4654-AC83-AE63FEC71E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A9AEC1E-5803-4654-AC83-AE63FEC71E6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

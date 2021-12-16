@@ -107,7 +107,7 @@ namespace AppProgSystem
         }
         private void Click_Data_Stop(object sender, RoutedEventArgs e)
         {
-
+            model.Stop();
         }
         private void Read_Button_Click(object sender, RoutedEventArgs e)
         {
