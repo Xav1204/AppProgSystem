@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 
 
@@ -12,6 +14,22 @@ namespace AppProgSystem
         public MainWindow()
         {
             InitializeComponent();
+            Application_Startup();
+        }
+
+        private void Application_Startup()
+        {
+            Process proc = Process.GetCurrentProcess();
+            //check other process with same name
+            int count = Process.GetProcesses().Where(p =>
+                p.ProcessName == proc.ProcessName).Count();
+
+            if (count > 1)
+            {
+                MessageBox.Show("Already an instance is running...");
+                //shutdown new instance
+                App.Current.Shutdown();
+            }
         }
 
         public static string choix = "";
