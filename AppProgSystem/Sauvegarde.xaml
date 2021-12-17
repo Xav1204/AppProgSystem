@@ -43,6 +43,13 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
+                            <Button Name ="Resume" Content="Resume" Click="Click_Data_Resume"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
                             <Button Name ="Stop" Content="Stop" Click="Click_Data_Stop"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

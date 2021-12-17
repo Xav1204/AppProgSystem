@@ -13,12 +13,12 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.Threading.Tasks;
+using Nito.AsyncEx;
 
 namespace AppProgSystem
 {
     public class Model
-    {  
-
+    {
         //variable model
         public string Name;
         public string Source;
@@ -31,6 +31,8 @@ namespace AppProgSystem
         public string pathAvancement = "C:\\EasySave\\Log\\Log_Avancement.json";
         public string pathJournalierXML = "C:\\EasySave\\Log\\Log_Journalier.xml";
         public Thread thr;
+        public Task task;
+        public bool stop = false;
 
         //variable intermédiaire
         public static DataGrid set = new DataGrid();
@@ -173,11 +175,11 @@ namespace AppProgSystem
             {
                 VerifyFile(pathAvancement);
 
-                var jsondata = File.ReadAllText(pathAvancement);
-                var list = JsonConvert.DeserializeObject<List<log_avancement>>(jsondata);
-
                 try
                 {
+                    var jsondata = File.ReadAllText(pathAvancement);
+                    var list = JsonConvert.DeserializeObject<List<log_avancement>>(jsondata);
+
                     //update le log_avancement le temps du save
                     foreach (var data in list.Where(x => x.Name == NameSave))
                     {
@@ -194,7 +196,7 @@ namespace AppProgSystem
                 }
                 catch
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(10);
                 }
             }
         }
@@ -220,40 +222,46 @@ namespace AppProgSystem
             }
             
         }
-       
-        public delegate void work(string NameSave);
+        
+        public CancellationTokenSource _token = null;
 
         public void Play()
         {
+            _token = new CancellationTokenSource();
+            CancellationToken token = _token.Token;
+
             Items items = set.SelectedItem as Items;
             var nom = items.Name;
-
-
-            Save Play = new Save();
-            thr = new Thread(new ThreadStart(() => Play.Sauvegarde(nom)));
-            thr.Name = nom;
-            thr.IsBackground = true;
-            thr.Start();
-
-        }
-
-        private ManualResetEvent _Event = new ManualResetEvent(true);
-        public void Pause()
-        {
+            
             try
             {
-                thr.Abort();
-                MessageBox.Show("arret");
+                task = Task.Run(() =>
+                {
+                    Save Play = new Save();
+                    thr = new Thread(new ThreadStart(() => Play.Sauvegarde(nom, token)));
+                    thr.Name = nom;
+                    thr.IsBackground = true;
+                    thr.Start();
+                });
             }
-            catch
+            catch (OperationCanceledException)
             {
-                MessageBox.Show("pas arret");
+                MessageBox.Show("error");
             }
-            
         }
 
+        public void Pause()
+        {
+            stop = true;
+        }
+        public void Resume()
+        {
+            stop = false;
+        }
         public void Stop()
         {
+            _token.Cancel();
+            _token.Dispose();
         }
 
         //créer une sauvegarde avec ses paramètres en entrée
@@ -502,8 +510,6 @@ namespace AppProgSystem
             } 
         }
 
-       
-
         public string ExeJS(string pathLangues, string search)
         {
             var Jservice = new Model();
@@ -532,7 +538,7 @@ namespace AppProgSystem
 
         public class Save : Model
         {
-            public void Sauvegarde(string NameSave)
+            public void Sauvegarde(string NameSave, CancellationToken token)
             {
                 var jsonText = File.ReadAllText(pathSave);
                 var Data = JsonConvert.DeserializeObject<List<data_Save>>(jsonText);
@@ -576,39 +582,36 @@ namespace AppProgSystem
                             int TotalFiles = Directory.GetFiles(Source, "*.*", SearchOption.TopDirectoryOnly).Length;
                             int FileToDo = TotalFiles;
 
+
+
                             //on recupère la taille en octets du dossier
                             foreach (string F in Files)
                             {
-                                var fileName = Path.GetFileName(F);
-                                var destFile = Path.Combine(Target, fileName);
-                                var prio = Path.GetFileNameWithoutExtension(F);
-
-
-                                if (prioritee != null)
+                                try
                                 {
+                                    
+                                    var fileName = Path.GetFileName(F);
+                                    var destFile = Path.Combine(Target, fileName);
+                                    var prio = Path.GetFileNameWithoutExtension(F);
 
-                                    foreach (string C in Files.Where(x => fileName == prio + prioritee))
+
+                                    if (prioritee != null)
                                     {
-                                        File.Copy(C, destFile, true);
+
+                                        foreach (string C in Files.Where(x => fileName == prio + prioritee))
+                                        {
+                                            File.Copy(C, destFile, true);
+                                        }
                                     }
-                                }
-                                File.Copy(F, destFile, true);
+                                    if (token.IsCancellationRequested)
+                                    {
+                                        token.ThrowIfCancellationRequested();
+                                    }
+                                    File.Copy(F, destFile, true);
 
-                                TotalSize += F.Length;
-                            }
-
-                            Size = TotalSize;
-                            foreach (var s in files)
-                            {
-                                for (int i = 0; i < TotalFiles; i++)
-                                {
-
-                                        //var items = new ObservableCollection<Items>();
-                                       // items.Add(new Items() { progress = (((TotalFiles - FileToDo) * TotalFiles) / 100) });
-                                        //set.ItemsSource = items;
-
+                                    TotalSize += F.Length;
+                                    Size = TotalSize;
                                     FileToDo--;
-
                                     // quand on a plus de fichiers à copier, on met tout à zéro
                                     if (FileToDo == 0)
                                     {
@@ -623,29 +626,44 @@ namespace AppProgSystem
                                     }
                                     Avancement(Name, Source, Target, state, TotalFiles, TotalSize, FileToDo, Progression);
                                 }
+                                catch
+                                {
+                                    Thread.Sleep(10);
+                                }
                             }
-                            Stopwatch stopwatch = new Stopwatch();
-                            stopwatch.Start();
-                            Process p = new Process();
-                            p.StartInfo.FileName = @"C:\EasySave\Cryptosoft\Cryptosoft.exe";
-                            string str = source.ToString() + " " + target.ToString() + " " + chiffre.ToString();
-                            p.StartInfo.Arguments = str;
-                            p.Start();
-                            p.WaitForExit();
-                            stopwatch.Stop();
-                            //fin timer
-                            sw.Stop();
-                            TimeSpan Timer = sw.Elapsed;
-                            TimeSpan temps = stopwatch.Elapsed;
                             try
                             {
-                                Journalier(Name, source, target, Size, Extension, Priorite, Timer, temps);
+                                if (token.IsCancellationRequested)
+                                {
+                                    token.ThrowIfCancellationRequested();
+                                }
+                                Stopwatch stopwatch = new Stopwatch();
+                                stopwatch.Start();
+                                Process p = new Process();
+                                p.StartInfo.FileName = @"C:\EasySave\Cryptosoft\Cryptosoft.exe";
+                                string str = source.ToString() + " " + target.ToString() + " " + chiffre.ToString();
+                                p.StartInfo.Arguments = str;
+                                p.Start();
+                                p.WaitForExit();
+                                stopwatch.Stop();
+                                //fin timer
+                                sw.Stop();
+                                TimeSpan Timer = sw.Elapsed;
+                                TimeSpan temps = stopwatch.Elapsed;
+                                try
+                                {
+                                    Journalier(Name, source, target, Size, Extension, Priorite, Timer, temps);
+                                }
+                                catch
+                                {
+                                    Thread.Sleep(500);
+                                }
+                                content();
                             }
                             catch
                             {
-                                Thread.Sleep(500);
+                                MessageBox.Show("Interrupted / Interrompu");
                             }
-                            content();
                         }
 
                         //si c'est pas complet, c'est différentiel
@@ -662,38 +680,47 @@ namespace AppProgSystem
                             string state = "Active";
 
                             int TotalFiles = 0;
+                            int Size = 0;
 
                             foreach (string f in files)
                             {
                                 foreach (string F in Files)
                                 {
-
-                                    if (f.Length != F.Length)
+                                    try
                                     {
-                                        var fileName = Path.GetFileName(f);
-                                        var destFile = Path.Combine(Target, fileName);
-                                        var prio = Path.GetFileNameWithoutExtension(f);
-                                        if (prioritee != null)
+                                        if (f.Length != F.Length)
                                         {
-                                            foreach (string C in Files.Where(x => fileName == prio + prioritee))
+                                            var fileName = Path.GetFileName(f);
+                                            var destFile = Path.Combine(Target, fileName);
+                                            var prio = Path.GetFileNameWithoutExtension(f);
+                                            if (prioritee != null)
                                             {
-                                                File.Copy(C, destFile, true);
+                                                foreach (string C in Files.Where(x => fileName == prio + prioritee))
+                                                {
+                                                    File.Copy(C, destFile, true);
+                                                }
                                             }
-                                        }
+                                            if (token.IsCancellationRequested)
+                                            {
+                                                token.ThrowIfCancellationRequested();
+                                            }
+                                            File.Copy(f, destFile, true);
 
-                                        File.Copy(f, destFile, true);
-                                        
-                                        TotalSize += f.Length - F.Length;
-                                        TotalFiles += 1;
+                                            TotalSize += f.Length - F.Length;
+                                            TotalFiles += 1;
+                                            Size = TotalSize;
+                                        }
                                     }
+                                    catch
+                                    {
+                                        Thread.Sleep(100);
+                                    }
+                                    
                                 }
                             }
-
-                            int Size = TotalSize;
                             float Progression = 0;
                             var sw = Stopwatch.StartNew();
                             int FileToDo = TotalFiles;
-
                             foreach (string s in files)
                             {
                                 foreach (string S in Files)
@@ -720,20 +747,39 @@ namespace AppProgSystem
                                     }
                                 }
                             }
-                            Stopwatch stopwatch = new Stopwatch();
-                            stopwatch.Start();
-                            Process p = new Process();
-                            p.StartInfo.FileName = @"C:\EasySave\Cryptosoft\Cryptosoft.exe";
-                            string str = source.ToString() + " " + target.ToString() + " " + chiffre.ToString();
-                            p.StartInfo.Arguments = str;
-                            p.Start();
-                            p.WaitForExit();
-                            stopwatch.Stop();
-                            sw.Stop();
-                            TimeSpan Timer = sw.Elapsed;
-                            TimeSpan temps = stopwatch.Elapsed;
-                            Journalier(Name, source, target, Size, Extension, Priorite, Timer, temps);
-                            content();
+                            try
+                            {
+                                if (token.IsCancellationRequested)
+                                {
+                                    token.ThrowIfCancellationRequested();
+                                }
+                                Stopwatch stopwatch = new Stopwatch();
+                                stopwatch.Start();
+                                Process p = new Process();
+                                p.StartInfo.FileName = @"C:\EasySave\Cryptosoft\Cryptosoft.exe";
+                                string str = source.ToString() + " " + target.ToString() + " " + chiffre.ToString();
+                                p.StartInfo.Arguments = str;
+                                p.Start();
+                                p.WaitForExit();
+                                stopwatch.Stop();
+                                //fin timer
+                                sw.Stop();
+                                TimeSpan Timer = sw.Elapsed;
+                                TimeSpan temps = stopwatch.Elapsed;
+                                try
+                                {
+                                    Journalier(Name, source, target, Size, Extension, Priorite, Timer, temps);
+                                }
+                                catch
+                                {
+                                    Thread.Sleep(500);
+                                }
+                                content();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Interrupted / Interrompu");
+                            }
                         }
                     }
                     else

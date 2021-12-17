@@ -22,6 +22,7 @@ namespace AppProgSystem
 
         Model model = new Model();
 
+
         public Sauvegarde()
         {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace AppProgSystem
             Model.txt_extension = Extension;
             Model.txt_priorite = Priorite;
             Model.extent = journalier;
+
         }
 
         public delegate String del_JSON(string path, string search);
@@ -107,11 +109,15 @@ namespace AppProgSystem
         }
         private void Click_Data_Stop(object sender, RoutedEventArgs e)
         {
-            model.Stop();
-        }
+            model.Stop(); 
+        } 
         private void Read_Button_Click(object sender, RoutedEventArgs e)
         {
             model.Read();
+        }
+        private void Click_Data_Resume(object sender, RoutedEventArgs e)
+        {
+            model.Resume();
         }
 
         private void Create_Button_Click(object sender, RoutedEventArgs e)
